@@ -1129,7 +1129,7 @@ IM = single(zeros(480,640));
 Dw = linspace(-handles.S.dW/2,handles.S.dW/2,handles.S.N);
 Dh = linspace(-handles.S.dH/2,handles.S.dH/2,handles.S.N);
 VH=single(zeros(handles.S.N));
-VH = linspace(handles.S.dH/2,-handles.S.dH/2,handles.S.N);
+VH = single(linspace(handles.S.dH/2,-handles.S.dH/2,handles.S.N));
 % 
 % I0 = sind(linspace(0,4*360,5500)).^2;
 hwb = waitbar(0,'Computation of intensity matrix ...');
@@ -1138,8 +1138,8 @@ if(handles.S.GPU)
 %    disp(handles.S.m2)
     disp(handles.S.GPU)
     tic;
-    %[P,IM]=RayTracingCUDA(Br,Vb,VH,handles);
-    [P,IM]=RayTracingCUDA(Br(Vb(:),1),Br(Vb(:),2),VH,handles);
+%     [P,IM]=RayTracingCUDA(Br,Vb,VH,handles);
+    [P,IM]=RayTracingCUDA(Br(Vb(1,:),1),Br(Vb(1,:),2),VH(1,:),handles);
     disp(toc)
     waitbar(1,hwb)
     %disp(P(:,:,1000:1010,1000))
